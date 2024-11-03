@@ -211,12 +211,12 @@ def greeks_data(ohlc_df,symbol, earn_date, greater_4exp_dates,startdate,enddate)
 
 
 def run(symbol, earning_date):
-        # earning_date = str(earning_date)
+        earning_date = str(earning_date)
 
         print(f"symbol {symbol} and earn_date {earning_date}")
       
         t1=time.perf_counter() # timer start
-
+       
         greater_4exp_dates = forward4_expdate_dic(symbol,earning_date)# calculating 4 forward expiry dates
         print(f"expiry dates {greater_4exp_dates}")
 
@@ -225,7 +225,7 @@ def run(symbol, earning_date):
           print("Not processing  this case ")
         else:
             start_date,end_date = result
-            print(f'start and end date is {result}')
+            # print(f'start and end date is {result}')
                       
             ohlc_df = bulk_ohlc_data(symbol,earning_date,greater_4exp_dates,start_date,end_date)
           
@@ -258,7 +258,7 @@ def call_thread():
       # Create the full path
       output_filepath = os.path.join(directory, filename)
       df = pd.read_excel(output_filepath)     
-      # df['Earning Date']=pd.to_datetime(df['Earning Date'],format='%d-%m-%Y').dt.strftime(%Y%m%d)  
+      df['Earning Date']=pd.to_datetime(df['Earning Date'],format='%d-%m-%Y').dt.strftime("%Y%m%d")  
       future = executor.map(run,df['Symbol'],df['Earning Date']) # Earning Date
 
       
@@ -272,4 +272,5 @@ if __name__ == '__main__':
   call_thread()
   end = time.perf_counter()
   print(f"\nTotal elapsed Time df: {round((end-start)/60,2)} min")   
+  kill_existing_terminal()
         
