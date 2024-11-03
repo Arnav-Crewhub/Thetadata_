@@ -259,7 +259,7 @@ def call_thread():
       output_filepath = os.path.join(directory, filename)
       df = pd.read_excel(output_filepath)     
       # df['Earning Date']=pd.to_datetime(df['Earning Date'],format='%d-%m-%Y').dt.strftime(%Y%m%d)  
-      future = executor.map(run,df['Symbol'],df['Earnings_Date']) # Earning Date
+      future = executor.map(run,df['Symbol'],df['Earning Date']) # Earning Date
 
       
 if not is_terminal_instance_running():
@@ -268,8 +268,8 @@ if not is_terminal_instance_running():
 
 if __name__ == '__main__':
   start = time.perf_counter()
-  run('ACB','20240208')
-  # call_thread()
+  # run('ACB','20240208')
+  call_thread()
   end = time.perf_counter()
   print(f"\nTotal elapsed Time df: {round((end-start)/60,2)} min")   
         
